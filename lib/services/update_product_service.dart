@@ -1,6 +1,7 @@
 
  
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:storeapp/helper/api.dart';
 import 'package:storeapp/models/product_model.dart';
@@ -9,9 +10,9 @@ class UpdateProductService{
 
   Future<ProductModel> updateProduct( {
 
-  required String id,
-  required String title,
-  required String price,
+  required int id,
+  required String title, 
+  required dynamic price,  // Focus on this field
   required String description,
   required String image,
   required String category 
@@ -21,9 +22,9 @@ class UpdateProductService{
 
  //after last step jsoon decode in put   
 
-List<dynamic> data=
-  await Api().put(
-    url: 'https://fakestoreapi.com/products',
+Map<String,dynamic> data=
+        await Api().put(
+    url: 'https://fakestoreapi.com/products/:id',
    body: {
         "id": id,
         "title": title,
@@ -35,7 +36,8 @@ List<dynamic> data=
     // token:'empty'  
       ); 
 
-
+ log('================== Success ==================');
+ 
   return ProductModel.fromJson(data);
    
 }

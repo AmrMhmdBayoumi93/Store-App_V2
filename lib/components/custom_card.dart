@@ -17,6 +17,7 @@ class CustomCard extends StatelessWidget {
       child: Center(
         child: GestureDetector(
           onTap: (){
+            //arguments: product // send it to the update screen
             Navigator.pushNamed(context, UpdateProductScreen.id ,arguments: product);
           },
           child: Stack(
@@ -96,7 +97,7 @@ class CustomCard extends StatelessWidget {
                 top:-55,
               
                 child: Image.network(product.image,
-                height: 100,
+                  height: 100,
                   width: 100,
                 ))
                  

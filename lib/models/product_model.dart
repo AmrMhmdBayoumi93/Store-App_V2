@@ -3,13 +3,13 @@
    
 class ProductModel {
  
-  final dynamic id;
+  final int id;
   final String title;
-  final dynamic price;
+  final dynamic price;               // Focus on this field
   final String description;
   final String category;
   final String image;
-  final  RatingModel ratingModel;
+  final RatingModel ratingModel;
 
   ProductModel({required this.id, required this.title, required this.price, required this.description, required this.category, required this.image,required this.ratingModel});
 

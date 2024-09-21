@@ -71,28 +71,12 @@ class HomeScreen extends StatelessWidget {
           padding: const EdgeInsets.only(top:44.0 , left:16,right: 16),
       child:
     
-    //    child: 
-    //    ElevatedButton(
-       
-    //     onPressed: (){
-    //     dynamic response=  GetAllProductsService().getProducts();
-    //       log(response.body);
-    //       log(response.statusCode);
-
-    //     },
-    //     child: Text('test get request',
-    //     style: TextStyle(
-    //       color: Colors.black,
-    //       fontSize: 40,
-    //       fontWeight: FontWeight.bold,
-    //     ),
-    //    ),
-    //  ),
-
+   
 
 
       FutureBuilder<List<ProductModel>>(
         
+        // make get request to get all products from api
         future:   GetAllProductsService().getAllProductsMethod2(),
       
         builder: (context, snapshot) {
@@ -125,7 +109,8 @@ class HomeScreen extends StatelessWidget {
 
           } 
           else{    
-          return const Center(child: CircularProgressIndicator());
+
+          return const Center(child:const CircularProgressIndicator());
         
         }
          

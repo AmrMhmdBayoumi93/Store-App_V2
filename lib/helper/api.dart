@@ -1,7 +1,7 @@
 
 
 import 'dart:developer';
-
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:http/http.dart' as http;
@@ -77,7 +77,8 @@ class Api{
 
 
   // Future <dynamic> post ({required String url,required Map <String,dynamic> body})async{
-  //           http.Response response =   await http.post(Uri.parse(url),body: body);
+  //           http.Response response =   await http.post(Uri.parse(url),
+  //     body: body);
   //           if (response.statusCode ==200){
   //             Map <String,dynamic> data = jsonDecode(response.body);
   //                   return data;
@@ -96,6 +97,9 @@ class Api{
 
 
 //2    // post request with body and token 
+
+
+
 
   Future <dynamic> post({required String url,@required dynamic body, @required String? token})async{
 
@@ -168,9 +172,12 @@ http.Response response = await http.put( Uri.parse(url),
            
             if (response.statusCode == 200) {
               
-               //after last step jsoon decode in put   
-                  return jsonDecode(response.body);
-                      
+               //after last step jsoon decode in put  
+                log(response.body); 
+
+                   Map<String,dynamic> data = jsonDecode(response.body);
+                  return data;
+
                 } else {
                   // Handle error
       throw Exception('Error at ${response.body} + and Status code is ${response.statusCode}'); 
