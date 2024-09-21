@@ -24,7 +24,7 @@ class UpdateProductService{
 
 Map<String,dynamic> data=
         await Api().put(
-    url: 'https://fakestoreapi.com/products/:id',
+    url: 'https://fakestoreapi.com/products/:$id',
    body: {
         "id": id,
         "title": title,
