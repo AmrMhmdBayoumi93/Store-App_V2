@@ -149,46 +149,79 @@ http.Response response = await http.post( Uri.parse(url),
               //3 req with body and token
               // put req is simmilar to post req
 
-  Future <dynamic> put({required String url,@required dynamic body, @required String? token})async{
+   // my put method
+
+//   Future <dynamic> put({required String url,@required dynamic body, @required String? token})async{
 
 
-    Map<String,String> headers ={
-       'Accept':'application/json',   //type of accept data
-     'Content-Type': 'application/x-www-form-urlencoded', // type of send
+//     Map<String,String> headers ={
+//        'Accept':'application/json',   //type of accept data
+//      'Content-Type': 'application/x-www-form-urlencoded', // type of send
 
-    };
+//     };
 
-    if (token!=null){
-      // headers['Authorization']='Bearer $token';
-      headers.addAll({
-        'Authorization':'Bearer $token'});
-    } 
+//     if (token!=null){
+//       // headers['Authorization']='Bearer $token';
+//       headers.addAll({
+//         'Authorization':'Bearer $token'});
+//     } 
 
-http.Response response = await http.put( Uri.parse(url),
-  body: body,
-  headers: headers,
-);
+// http.Response response = await http.put( Uri.parse(url),
+//   body: body,
+//   headers: headers,
+// );
 
            
-            if (response.statusCode == 200) {
+//             if (response.statusCode == 200) {
               
-               //after last step jsoon decode in put  
-                log(response.body); 
+//                //after last step jsoon decode in put  
+//                 log(response.body); 
 
-                   Map<String,dynamic> data = jsonDecode(response.body);
-                  return data;
+//                    Map<String,dynamic> data = jsonDecode(response.body);
+//                   return data;
 
-                } else {
-                  // Handle error
-      throw Exception('Error at ${response.body} + and Status code is ${response.statusCode}'); 
-                  log('Failed to add product');
-                }
+//                 } else {
+//                   // Handle error
+//       throw Exception('Error at ${response.body} + and Status code is ${response.statusCode}'); 
+//                   log('Failed to add product');
+//                 }
 
 
 
+//   }
+
+
+// abdo put method 
+
+Future<dynamic> put(
+      {required String url,
+      @required dynamic body,
+      @required String? token}) async {
+    Map<String, String> headers = {};
+    headers.addAll({
+      'Content-Type': 'application/x-www-form-urlencoded'});
+
+    if (token != null) {
+      headers.addAll({'Authorization': 'Bearer $token'});
+    }
+
+    log('url= $url , body= $body , token= $token');
+
+    http.Response response =
+        await http.put(Uri.parse(url), body: body, headers: headers);
+    if (response.statusCode == 200) {
+      Map<String, dynamic> data = jsonDecode(response.body);
+      
+      // log('${response.body}');
+      log('${data}');
+
+      return data;
+    
+    } else {
+      throw Exception(
+          'there was a problem witht status code ${response.statusCode} with the body ${response.body}');
+    }
   }
-
-
 
 
 

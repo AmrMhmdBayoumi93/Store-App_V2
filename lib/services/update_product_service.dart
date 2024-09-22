@@ -12,35 +12,29 @@ class UpdateProductService{
 
   required int id,
   required String title, 
-  required dynamic price,  // Focus on this field
+  required String  price,  // Focus on this field
   required String description,
   required String image,
   required String category 
   // @required String token, 
-  })async{
+  })  async{
 
 
  //after last step jsoon decode in put   
+  log('product id  = $id');
+                                    // 'https://fakestoreapi.com/products/$id' not '  :$id'
+    Map<String, dynamic> data =
+        await Api().put(url: 'https://fakestoreapi.com/products/$id', body: {
+      'title': title,
+      'price': price.toString(),
+      'description': description,
+      'image': image,
+      'category': category,
+    });
 
-Map<String,dynamic> data=
-        await Api().put(
-    url: 'https://fakestoreapi.com/products/:$id',
-   body: {
-        "id": id,
-        "title": title,
-        "price": price,
-        "description":description,
-        "category": category,
-        "image": image,
-    },
-    // token:'empty'  
-      ); 
-
- log('================== Success ==================');
- 
-  return ProductModel.fromJson(data);
-   
-}
+    return ProductModel.fromJson(data);
+    
+  }
 
 
                     

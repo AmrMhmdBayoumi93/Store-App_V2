@@ -1,80 +1,41 @@
-
- 
-   
 class ProductModel {
- 
-  final int id;
+  final dynamic id;
   final String title;
-  final dynamic price;               // Focus on this field
+  final dynamic price;
   final String description;
-  final String category;
   final String image;
-  final RatingModel ratingModel;
+  final RatingModel? rating;
+  final String category;
+  ProductModel(
+      {required this.id,
+      required this.title,
+      required this.category,
+      required this.price,
+      required this.description,
+      required this.image,
+      required this.rating});
 
-  ProductModel({required this.id, required this.title, required this.price, required this.description, required this.category, required this.image,required this.ratingModel});
-
-  factory ProductModel.fromJson(jsonData){
-
+  factory ProductModel.fromJson(jsonData) {
     return ProductModel(
-      id:jsonData['id'], title:jsonData['title'],
-     price: jsonData['price'],  description: jsonData['description'], 
-     category: jsonData['category'], image: jsonData['image']
-
-       ,ratingModel:RatingModel.fromJson(jsonData['rating'])  
-     );
-     
- 
-      }
-
-
-
-
+        id:jsonData['id'],
+        title: jsonData['title'],
+        category: jsonData['category'],
+        price: jsonData['price'],
+        description: jsonData['description'],
+        image: jsonData['image'],
+        rating: jsonData['rating'] == null
+            ? null
+            : RatingModel.fromJson(jsonData['rating']));
   }
-
-
-
-
-
-
-
-
-  class RatingModel{
-    final dynamic rating;
-    final dynamic  count;
-
-  RatingModel({required this.rating, required this.count});
-  factory RatingModel.fromJson(jsonData){
-    return RatingModel(rating: jsonData['rate'], count: jsonData['count']);
-  }
-
-
 }
- 
 
+class RatingModel {
+  final dynamic rate;
+  final int count;
 
+  RatingModel({required this.rate, required this.count});
 
-
-
-      // ProductModel
-
-//         "id": 1,
-//         "title": "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
-//         "price": 109.95,
-//         "description": "Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday",
-//         "category": "men's clothing",
-//         "image": "https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg",
-//         "rating": {
-//             "rate": 3.9,
-//             "count": 120
-//         }
-//     }, 
-
-        
-        
-        // RatingModel
-
-
-//   "rating": {
-// //             "rate": 3.9,
-// //             "count": 120
-// //         }
+  factory RatingModel.fromJson(jsonData) {
+    return RatingModel(rate: jsonData['rate'], count: jsonData['count']);
+  }
+}

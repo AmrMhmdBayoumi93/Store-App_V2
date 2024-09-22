@@ -15,16 +15,19 @@ class UpdateProductScreen extends StatefulWidget {
 
   static String id = 'UpdateProductScreen';
 
-  String? productName, description, image;
-  dynamic? price; // Treat price as a String for the input
-  bool isLoading =false;
-  UpdateProductScreen({super.key, this.productName, this.description, this.image, this.price});
+  
+  
 
   @override
   State<UpdateProductScreen> createState() => _UpdateProductScreenState();
 }
 
 class _UpdateProductScreenState extends State<UpdateProductScreen> {
+
+  String? productName, description, image;
+ String? price; // Treat price as a String for the input
+  bool isLoading =false;
+
   @override
   Widget build(BuildContext context) {
 
@@ -32,7 +35,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
     ProductModel product = ModalRoute.of(context)!.settings.arguments as ProductModel;
 
     return ModalProgressHUD(
-      inAsyncCall: widget.isLoading,
+      inAsyncCall: isLoading,
+
       child: Scaffold(
         appBar: AppBar(
           title: const Text(
@@ -65,14 +69,14 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 CustomTextFiled(
                   hintText: 'Product Name',
                   onChanged: (data) {
-                    widget.productName = data;
+                   productName = data;
                   },
                 ),
                 const SizedBox(height: 10),
                 CustomTextFiled(
                   hintText: 'Description',
                   onChanged: (data) {
-                     widget.description = data;
+                    description = data;
                   },
                 ),
                 const SizedBox(height: 10),
@@ -82,7 +86,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                   // keyboardType: TextInputType.number,
                   hintText: 'Price',
                   onChanged: (data) {
-                     widget.price =data; // Store price as a string here not parse to int
+                     price =data; // Store price as a string here not parse to int
                   },
                 ),
       
@@ -91,7 +95,7 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 CustomTextFiled(
                   hintText: 'Image',
                   onChanged: (data) {
-                     widget.image = data;
+                    image = data;
                   },
                 ),
                 const SizedBox(height: 25),
@@ -104,28 +108,34 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
                 //make put req here  update
                   
                 CustomButton(
+
                   buttonName: 'Update Product',
-                  onTap: () {   
-                    
-                     widget.isLoading =true;
+                  onTap: () async{   
+                  // hwen u click update button
+                   isLoading =true;
                        setState( (
 
                        ){});  
 
-                    print('===========================================================');
+                  
                     log('===========================================================');
-                      
-                      try {
-  updateProductMethodByRefactoring(product);
-    showSnackBar(context, 'Product Updated Successfully');
 
-} on Exception catch (e) {
- print(e.toString());
-  showSnackBar(context, 'OH NO! Something went wrong');
+                  
+                      try {  
+                          await updateProductMethodByRefactoring(product);
+                      log("===== Success =====");
+          showSnackBar(context, ' Product Updated Successfully');
+
+
+
+                   }  catch (e) {
+
+                    print(e.toString());
+                showSnackBar(context, 'OH NO! Something went wrong Try again later...');
 }
 
 
-                     widget.isLoading =false;
+                   isLoading =false;
                        setState( (
 
                        ){});    
@@ -162,16 +172,32 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
            
                  }
 
-  void updateProductMethodByRefactoring(ProductModel product) {
-    UpdateProductService().updateProduct(
+  Future<void> updateProductMethodByRefactoring(ProductModel product)async {
+
+   await UpdateProductService().updateProduct(
+
         id:product.id, 
-           title:widget.productName??product.title ,
-          price:widget.price??product.price ,    // all problem in this field 
+           title:productName==null ? product.title:productName! ,
           
-          description: widget.description??product.description ,
-          image:widget.image??product.image ,
+          // here
+
+         price: price == null ? product.price.toString() :price!,
+       //
+       //// Parse string to double, or fallback to product price    // all problem in this field 
+          
+
+
+            description: description == null ? product.description :description!,
+          image:image==null ? product.image:image! ,
+      
       category:product.category!  ,
       
     );
-  }
-}
+ 
+     }
+
+
+
+
+
+ }
