@@ -111,27 +111,40 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
                   buttonName: 'Update Product',
                   onTap: () async{   
-                  // hwen u click update button
+                  // here u click update button
                    isLoading =true;
                        setState( (
 
                        ){});  
-
+                
                   
-                    log('===========================================================');
+                    log('=====going to do UpdateMehtod===============');
 
                   
                       try {  
                           await updateProductMethodByRefactoring(product);
-                      log("===== Success =====");
-          showSnackBar(context, ' Product Updated Successfully');
+
+                          log("===== Success Update Product Alhamd llah =====");
+          showSnackBar(context, ' Product Updated Successfully', 
+              style: const TextStyle(
+                color: Colors.green,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+          );
 
 
 
                    }  catch (e) {
 
                     print(e.toString());
-                showSnackBar(context, 'OH NO! Something went wrong Try again later...');
+                showSnackBar(context, 'OH NO! Something went wrong Try again later...' 
+                ,style: const TextStyle(
+                color: Colors.red,
+                fontWeight: FontWeight.bold,
+                fontSize: 22,
+              ),
+                );
 }
 
 
