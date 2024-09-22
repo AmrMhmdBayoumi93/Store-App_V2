@@ -111,7 +111,8 @@ class _UpdateProductScreenState extends State<UpdateProductScreen> {
 
                   buttonName: 'Update Product',
                   onTap: () async{   
-                  // hwen u click update button
+                  // here  u click update button
+                  
                    isLoading =true;
                        setState( (
 
